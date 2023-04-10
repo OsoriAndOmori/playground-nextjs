@@ -1,0 +1,6 @@
+{
+  "crons": [{
+    "path": "/api/sample_airbnb/listingsAndReviews",
+    "schedule": "0 0 * * *"
+  }]
+}
