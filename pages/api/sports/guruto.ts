@@ -1,14 +1,24 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next'
+import edgeChromium from 'chrome-aws-lambda'
 import puppeteer from 'puppeteer';
 import fs from 'fs'
 import path from 'path'
+
+const LOCAL_CHROME_EXECUTABLE = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'
 
 export default async function handler(
     req: NextApiRequest,
     res: NextApiResponse<Buffer>
 ) {
-    const browser = await puppeteer.launch();
+    const executablePath = await edgeChromium.executablePath || LOCAL_CHROME_EXECUTABLE
+
+    const browser = await puppeteer.launch({
+        executablePath,
+        args: edgeChromium.args,
+        headless: true,
+    })
+
     const page = await browser.newPage();
 
     console.log("구매 가능 게임 진입");
