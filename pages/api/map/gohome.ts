@@ -20,6 +20,7 @@ export default (req: NextApiRequest, res: NextApiResponse) => {
         .then(response => {
             console.log(response.data);
             res.status(200).json(response.data);
+            return response.data;
         })
         .catch(error => {
             console.error(error);

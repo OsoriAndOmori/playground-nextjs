@@ -1,0 +1,14 @@
+### mongo 조회
+GET http://localhost:3000/api/sample_airbnb/listingsAndReviews
+
+### mongo 조회 단건
+GET http://localhost:3000/api/sample_airbnb/listingsAndReviews/10006546
+
+### 나에게 메세지 보내기 : 이걸루는 안됨.
+GET http://localhost:3000/api/kakao/code
+
+### 길찾기
+GET http://localhost:3000/api/map/gohome?start=126.77801150878531,37.658031591237425&goal=126.82325269403174,37.55138140215686
+
+### 거루토
+GET http://localhost:3000/api/sports/guruto
