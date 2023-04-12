@@ -1,23 +1,19 @@
 {
-  "private": true,
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start"
-  },
-  "dependencies": {
-    "@types/formidable": "^2.0.5",
-    "axios": "^1.3.5",
-    "formidable": "^2.1.1",
-    "mongodb": "^4.8.1",
-    "multer": "^1.4.5-lts.1",
-    "next": "latest",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
-  },
+  "name": "playground-nextjs",
   "devDependencies": {
-    "@types/node": "18.7.5",
-    "@types/react": "16.9.17",
-    "typescript": "4.6.3"
+    "lerna": "^6.6.1"
+  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "bootstrap": "npm install; lerna bootstrap --hoist;",
+    "clean": "lerna clean",
+    "api:dev": "npx lerna run --scope project-api dev",
+    "api:start": "npx lerna run --scope project-api start",
+    "api:build": "npx lerna run --scope project-api build",
+    "guruto:dev": "npx lerna run --scope project-guruto dev",
+    "guruto:start": "npx lerna run --scope project-guruto start",
+    "guruto:build": "npx lerna run --scope project-guruto build"
   }
 }
