@@ -2,7 +2,8 @@ import * as React from 'react';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import fs from 'fs';
+import {readdirSync, readFileSync} from 'fs';
+import path from 'path';
 import Copyright from '../src/component/Copyright';
 import Image from "next/image";
 
@@ -10,17 +11,16 @@ interface Props {
     images: string[]
 }
 
-export async function getServerSideProps() {
-    let images = fs.readdirSync('public/images/osori-family');
-    console.log("images", images);
+export function getStaticProps() {
+    const directory = path.join(process.cwd(), 'public', 'images', 'osori-family');
+    const images = readdirSync(directory);
+
     return {
         props: {images: images}, // will be passed to the page component as props
     }
 }
 
 const Home = (props: Props) => {
-    console.log('home images', props.images);
-
     return (
         <Container maxWidth="lg">
             <Box
