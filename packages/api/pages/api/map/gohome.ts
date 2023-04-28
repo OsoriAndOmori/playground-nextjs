@@ -26,7 +26,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     const response = await axios.get('https://naveropenapi.apigw.ntruss.com/map-direction-15/v1/driving', config);
     const summary = response.data.route.traoptimal[0].summary;
     const duration = summary.duration;
-    await send(`지금 당장 집으로 출발하면 일산 Sphere 에서 수명산 파크까지 ${Math.floor(duration / 1000 / 60)}분 걸립니다. 기름값은 ${summary.fuelPrice} 원 입니다.`);
+    await send(`지금 당장 집으로 출발하면 일산 Sphere 에서 수명산 파크까지 ${Math.floor(duration / 1000 / 60)}분 걸립니다. 기름값은 ${summary.fuelPrice}원 입니다.`);
     res.status(200).json(summary);
     return summary;
 }
