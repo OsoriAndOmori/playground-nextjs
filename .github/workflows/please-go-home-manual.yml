@@ -1,4 +1,4 @@
-name: please-go-home-cron
+name: please-go-home-manual
 on: workflow_dispatch
 jobs:
   cron:
