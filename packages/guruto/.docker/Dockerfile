@@ -17,7 +17,7 @@ RUN addgroup -S pptruser && adduser -S -G pptruser pptruser \
     && chown -R pptruser:pptruser /home/pptruser \
     && chown -R pptruser:pptruser /app
 
-ADD /packages/guruto /var/www/guruto
+ADD . /var/www/guruto
 WORKDIR /var/www/guruto
 
 RUN npm install
