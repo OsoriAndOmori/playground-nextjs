@@ -26,7 +26,6 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           context: "{{defaultContext}}:/packages/guruto"
-          platforms: linux/amd64,linux/arm64/v8,linux/386
           file: .docker/Dockerfile
           push: true
           tags: skywhite15/guruto-nextjs:latest
