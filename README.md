@@ -5,3 +5,7 @@
     - 스샷 캡쳐 pupeteer
     - crud api
     - oauth
+- DockerBuild & Run
+  - `docker buildx build --platform=linux/arm/v7,linux/arm64,linux/amd64,linux/386 --output type=image -f .docker/Dockerfile_Guruto -t guruto-nextjs:0.0.1 .`
+  - `docker build -f .docker/Dockerfile_Guruto -t guruto-nextjs:0.0.1 .`
+  - `docker run -d -p 3000:3000 --env-file=packages/guruto/.env.local guruto-nextjs:0.0.1`

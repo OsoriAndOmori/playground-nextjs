@@ -4,7 +4,7 @@ import {NextApiRequest, NextApiResponse} from "next";
 const client_id = process.env.KAKAO_APP_CLIEND_ID  || "";
 const redirectUrl = process.env.KAKAO_APP_REDIRECT_URL  || "";
 
-export default (req: NextApiRequest, res: NextApiResponse) => {
+const login = (req: NextApiRequest, res: NextApiResponse) => {
     console.log("code", req.query['code']);
 
     const config = {
@@ -31,16 +31,16 @@ export default (req: NextApiRequest, res: NextApiResponse) => {
             }
 
             const queryParams = {
-                    template_object: "{\n" +
-                        "        \"object_type\": \"text\",\n" +
-                        "        \"text\": \"텍스트 영역입니다. 최대 200자 표시 가능합니다.\",\n" +
-                        "        \"link\": {\n" +
-                        "            \"web_url\": \"https://developers.kakao.com\",\n" +
-                        "            \"mobile_web_url\": \"https://developers.kakao.com\"\n" +
-                        "        },\n" +
-                        "        \"button_title\": \"바로 확인\"\n" +
-                        "    }"
-                }
+                template_object: "{\n" +
+                    "        \"object_type\": \"text\",\n" +
+                    "        \"text\": \"텍스트 영역입니다. 최대 200자 표시 가능합니다.\",\n" +
+                    "        \"link\": {\n" +
+                    "            \"web_url\": \"https://developers.kakao.com\",\n" +
+                    "            \"mobile_web_url\": \"https://developers.kakao.com\"\n" +
+                    "        },\n" +
+                    "        \"button_title\": \"바로 확인\"\n" +
+                    "    }"
+            }
 
             axios.post("https://kapi.kakao.com/v2/api/talk/memo/default/send", {}, { headers, params: queryParams })
                 .then(response2 => res.status(200).json(response2.data))
@@ -49,5 +49,7 @@ export default (req: NextApiRequest, res: NextApiResponse) => {
         .catch(error => {
             console.error(error);
         });
-}
+};
+
+export default login
 

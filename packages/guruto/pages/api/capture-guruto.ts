@@ -1,21 +1,11 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import type { NextApiRequest, NextApiResponse } from 'next'
-import edgeChromium from 'chrome-aws-lambda'
+import type {NextApiRequest, NextApiResponse} from 'next'
 import puppeteer from 'puppeteer';
 import fs from 'fs'
 import path from 'path'
 
-const LOCAL_CHROME_EXECUTABLE = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'
-
-export default async function handler(
-    req: NextApiRequest,
-    res: NextApiResponse<Buffer>
-) {
-    const executablePath = await edgeChromium.executablePath || LOCAL_CHROME_EXECUTABLE
-
+const guruto = async function handler(req: NextApiRequest, res: NextApiResponse<Buffer>) {
     const browser = await puppeteer.launch({
-        executablePath,
-        args: edgeChromium.args,
+        args: ['--no-sandbox', '--disable-dev-shm-usage'],
         headless: true,
     })
 
@@ -28,7 +18,7 @@ export default async function handler(
     await page.evaluate(() => {
         console.log("승부식 있으면 클릭후 이동");
         document.querySelectorAll("a").forEach(value => {
-            if(value.getAttribute("href")!!.indexOf("gmId=G101") > 0) value.click();
+            if (value.getAttribute("href")!!.indexOf("gmId=G101") > 0) value.click();
         });
     });
 
@@ -45,20 +35,22 @@ export default async function handler(
             const validLeague = targetLeagues.includes(value.innerHTML);
             const validStatus = !escape.includes((value.closest("tr") as HTMLTableRowElement).querySelectorAll("td")[1].innerText)
 
-            if(validLeague && validStatus) return;
+            if (validLeague && validStatus) return;
             value.closest("tr")!!.remove();
         });
     }, ".db.fs11")
 
     console.log("evaluate finish")
     const element = await page.$('#div_gmBuySlip');        // declare a variable with an ElementHandle
-    await element?.screenshot({path: `screenshot.png`}); // take screenshot element in puppeteer
+    await element?.screenshot({path: `public/images/guruto_screenshot.png`}); // take screenshot element in puppeteer
     await browser.close();
     // close browser
 
-    const filePath = path.resolve('.', 'screenshot.png')
+    const filePath = path.resolve('.', 'public/images/guruto_screenshot.png')
     const imageBuffer = fs.readFileSync(filePath)
 
     res.setHeader('Content-Type', 'image/png')
     res.send(imageBuffer)
-}
+};
+
+export default guruto

@@ -10,8 +10,8 @@
   },
   "dependencies": {
     "autoprefixer": "10.4.14",
+    "axios": "^1.4.0",
     "capture-website": "^3.2.0",
-    "chrome-aws-lambda": "^10.1.0",
     "eslint": "8.38.0",
     "eslint-config-next": "13.3.0",
     "next": "latest",
