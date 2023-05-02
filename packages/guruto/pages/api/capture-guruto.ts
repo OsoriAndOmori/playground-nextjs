@@ -21,15 +21,6 @@ const guruto = async function handler(req: NextApiRequest, res: NextApiResponse)
         });
     });
 
-
-    // dataTables_empty 있으면 정상적으로 구매가능게임이 없는 것. 종료
-    if(document.querySelectorAll(".dataTables_empty").length !== 0){
-        console.log("구매 가능 게임 없음.")
-        res.send({message: '구매 가능 게임이 없음'});
-        return;
-    }
-
-
     // await page.goto('https://www.betman.co.kr/main/mainPage/gamebuy/gameSlip.do?gmId=G101&gmTs=230041');
     await page.waitForSelector('.db.fs11');          // wait for the selector to load
     console.log("구매 화면 로딩 중")
