@@ -3,7 +3,7 @@ import puppeteer from 'puppeteer';
 import fs from 'fs'
 import path from 'path'
 
-const guruto = async function handler(req: NextApiRequest, res: NextApiResponse<Buffer>) {
+const guruto = async function handler(req: NextApiRequest, res: NextApiResponse) {
     const browser = await puppeteer.launch({
         args: ['--no-sandbox', '--disable-dev-shm-usage'],
         headless: true,
@@ -11,7 +11,6 @@ const guruto = async function handler(req: NextApiRequest, res: NextApiResponse<
 
     const page = await browser.newPage();
 
-    console.log("구매 가능 게임 진입");
     await page.goto('https://www.betman.co.kr/main/mainPage/gamebuy/buyableGameList.do');
     await page.setViewport({width: 1300, height: 2000, isMobile: true})
     await page.waitForSelector('strong');
@@ -22,7 +21,14 @@ const guruto = async function handler(req: NextApiRequest, res: NextApiResponse<
         });
     });
 
-    console.log("이동 중")
+
+    // dataTables_empty 있으면 정상적으로 구매가능게임이 없는 것. 종료
+    if(document.querySelectorAll(".dataTables_empty").length !== 0){
+        console.log("구매 가능 게임 없음.")
+        res.send({message: '구매 가능 게임이 없음'});
+        return;
+    }
+
 
     // await page.goto('https://www.betman.co.kr/main/mainPage/gamebuy/gameSlip.do?gmId=G101&gmTs=230041');
     await page.waitForSelector('.db.fs11');          // wait for the selector to load

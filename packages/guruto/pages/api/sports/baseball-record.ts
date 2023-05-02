@@ -5,7 +5,7 @@ import path from "path";
 import * as fs from "fs";
 
 
-export default async (req: NextApiRequest, res: NextApiResponse) => {
+const BaseballRecord = async (req: NextApiRequest, res: NextApiResponse) => {
     const date = req.query.date as string
     const response = await axios.get('https://m.sports.naver.com/schedule/ajax/list?category=kbaseball&date=' + defaultIfEmptyYYYYMMdd(date));
     const scheduleIds = response.data.scheduleMap
@@ -45,7 +45,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         manifestBuffer.pipe(res);
         manifestBuffer.on("end", resolve);
     });
-}
+};
+export default BaseballRecord
 
 const defaultIfEmptyYYYYMMdd = (defaultYYYYMMDD: string) => {
     if (defaultYYYYMMDD !== undefined) {
