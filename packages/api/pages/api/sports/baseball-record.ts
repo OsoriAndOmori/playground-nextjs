@@ -9,13 +9,13 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     const date = req.query.date as string
     const response = await axios.get('https://m.sports.naver.com/schedule/ajax/list?category=kbaseball&date=' + defaultIfEmptyYYYYMMdd(date));
     const scheduleIds = response.data.scheduleMap
-        .find(schedulebox => schedulebox.categoryId === 'kbo').scheduleList
-        .map(schedule => schedule.gameId);
+        .find((schedulebox: any) => schedulebox.categoryId === 'kbo').scheduleList
+        .map((schedule: any)=> schedule.gameId);
 
     console.log('scheduleIds', scheduleIds);
 
-    const fetch = await Promise.all(scheduleIds.map(gameId => axios.get(`https://api-gw.sports.naver.com/schedule/games/${gameId}/record`)))
-    const results = fetch.map(res => res.data.result.recordData).filter(result => !(result === null || result.pitchersBoxscore === undefined || result.battersBoxscore === undefined));
+    const fetch = await Promise.all(scheduleIds.map((gameId:any) => axios.get(`https://api-gw.sports.naver.com/schedule/games/${gameId}/record`)))
+    const results = fetch.map((res:any) => res.data.result.recordData).filter((result:any) => !(result === null || result.pitchersBoxscore === undefined || result.battersBoxscore === undefined));
     console.log('results', results);
 
     const wb = XLSX.utils.book_new();
