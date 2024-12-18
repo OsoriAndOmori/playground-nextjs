@@ -1,7 +1,7 @@
 name: please-go-home-cron
 on:
   schedule:
-    - cron: '0-20 8 * * 1-5'
+    - cron: '30-59 7 * * 1-5'
 jobs:
   cron:
     runs-on: ubuntu-latest
