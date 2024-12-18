@@ -15,8 +15,8 @@ const conversationId = 'D053U393B8D';
 export default async (req: NextApiRequest, res: NextApiResponse) => {
     const config = {
         headers: {
-            'X-NCP-APIGW-API-KEY-ID': X_NCP_APIGW_API_KEY_ID,
-            'X-NCP-APIGW-API-KEY': X_NCP_APIGW_API_KEY
+            'x-ncp-apigw-api-key-id': X_NCP_APIGW_API_KEY_ID,
+            'x-ncp-apigw-api-key': X_NCP_APIGW_API_KEY
         },
         params: {
             'start': req.query['start'],
